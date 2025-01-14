@@ -1,0 +1,150 @@
+name: Autograding Tests
+'on': 
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: post,stop
+      id: post-stop
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: post,stop
+        setup-command: ''
+        command: python3 anagram.py
+        input: post,stop
+        expected-output: post,stop -> anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: make,made
+      id: make-made
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: make,made
+        setup-command: ''
+        command: python3 anagram.py
+        input: make,made
+        expected-output: make,made -> not anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: apple,apple
+      id: apple-apple
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: apple,apple
+        setup-command: ''
+        command: python3 anagram.py
+        input: apple,apple
+        expected-output: apple,apple -> not anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: Rome,more
+      id: rome-more
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Rome,more
+        setup-command: ''
+        command: python3 anagram.py
+        input: Rome,more
+        expected-output: Rome,more -> anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: on,no
+      id: on-no
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: on,no
+        setup-command: ''
+        command: python3 anagram.py
+        input: on,no
+        expected-output: on,no -> anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: stone age,stage one
+      id: stone-age-stage-one
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: stone age,stage one
+        setup-command: ''
+        command: python3 anagram.py
+        input: stone age,stage one
+        expected-output: stone age,stage one -> anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: kayak,KAYAK
+      id: kayak-kayak
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: kayak,KAYAK
+        setup-command: ''
+        command: python3 anagram.py
+        input: kayak,KAYAK
+        expected-output: kayak,KAYAK -> not anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: pool,lop
+      id: pool-lop
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: pool,lop
+        setup-command: ''
+        command: python3 anagram.py
+        input: pool,lop
+        expected-output: pool,lop -> not anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: super tree,Peru trees
+      id: super-tree-peru-trees
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: super tree,Peru trees
+        setup-command: ''
+        command: python3 anagram.py
+        input: super tree,Peru trees
+        expected-output: super tree,Peru trees -> anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: colorless green ideas,ecologies slanderers
+      id: colorless-green-ideas-ecologies-slanderers
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: colorless green ideas,ecologies slanderers
+        setup-command: ''
+        command: python3 anagram.py
+        input: colorless green ideas,ecologies slanderers
+        expected-output: colorless green ideas,ecologies slanderers -> anagrams
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        POST-STOP_RESULTS: "${{steps.post-stop.outputs.result}}"
+        MAKE-MADE_RESULTS: "${{steps.make-made.outputs.result}}"
+        APPLE-APPLE_RESULTS: "${{steps.apple-apple.outputs.result}}"
+        ROME-MORE_RESULTS: "${{steps.rome-more.outputs.result}}"
+        ON-NO_RESULTS: "${{steps.on-no.outputs.result}}"
+        STONE-AGE-STAGE-ONE_RESULTS: "${{steps.stone-age-stage-one.outputs.result}}"
+        KAYAK-KAYAK_RESULTS: "${{steps.kayak-kayak.outputs.result}}"
+        POOL-LOP_RESULTS: "${{steps.pool-lop.outputs.result}}"
+        SUPER-TREE-PERU-TREES_RESULTS: "${{steps.super-tree-peru-trees.outputs.result}}"
+        COLORLESS-GREEN-IDEAS-ECOLOGIES-SLANDERERS_RESULTS: "${{steps.colorless-green-ideas-ecologies-slanderers.outputs.result}}"
+      with:
+        runners: post-stop,make-made,apple-apple,rome-more,on-no,stone-age-stage-one,kayak-kayak,pool-lop,super-tree-peru-trees,colorless-green-ideas-ecologies-slanderers
